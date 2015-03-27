@@ -1,0 +1,163 @@
+	"关闭兼容模式
+	set nocompatible
+	"模仿快捷键，如:Ctrl+A全选、Ctrl+C复制、Ctrl+V粘贴等等
+	source $VIMRUNTIME/vimrc_example.vim
+	source $VIMRUNTIME/mswin.vim
+	behave mswin
+
+	"gvim字体设置
+	"set guifont=Courire_New:h12:cANSI
+	set guifont=Monaco:h11:cANSI
+	"gvim内部编码
+	set encoding=utf-8
+	"当前编辑的文件编码
+	set fileencoding=utf-8
+	"gvim打开支持编码的文件
+	set fileencodings=ucs-bom,utf-8,gbk,cp936,gb2312,big5,euc-jp,euc-kr,latin1
+	"set langmenu=zh_CN
+	"显示行号
+	set nu
+	"配色方案
+	colorscheme lucius
+	LuciusDark
+	set nobk
+	"let $LANG = 'zh_CN.UTF-8'
+	"解决consle输出乱码
+	language messages zh_CN.utf-8
+	"解决菜单乱码
+	source $VIMRUNTIME/delmenu.vim
+	source $VIMRUNTIME/menu.vim
+	"设置终端编码为gvim内部编码encoding
+	let &termencoding=&encoding
+	"关闭上侧工具栏
+	set guioptions-=T
+	set linespace=4
+	 
+	set lines=35 columns=120
+  " 自动格式化
+   "set formatoptions=tcrqn
+  
+  " " 开始折叠
+   "set foldenable
+  
+  " 设置语法折叠
+   "set foldmethod=syntax
+  
+  "  设置折叠区域的宽度
+   "set foldcolumn=0
+  
+  "  设置折叠层数为
+   "setlocal foldlevel=1
+  
+  "  设置为自动关闭折叠
+    "set foldclose=all
+
+	 syntax on
+    
+    "indent
+	set autoindent
+    set cindent	
+    set smartindent
+
+    "hilight matched 
+    set showmatch
+	
+    "ignore case when searching
+    set ignorecase
+
+    "higlight search words
+    set hlsearch
+
+	"extra settings
+ filetype on
+
+ " 为特定文件类型载入相关缩进文件
+  filetype indent on
+  filetype plugin indent on
+ "
+ " "不同文件类型的缩进
+  au FileType html,python,vim,javascript setl shiftwidth=4
+  au FileType html,python,vim,javascript setl tabstop=4
+  au FileType java,php setl shiftwidth=4
+  au FileType java,php setl tabstop=4
+  set completeopt=longest,menu
+
+  set ruler
+
+  set incsearch
+
+  autocmd FileType text setlocal textwidth=78
+
+	
+  "php function list 
+	function PHPFuncList()
+	set dictionary-="D:\Program Files (x86)\Vim\vimfiles\func_php.txt"
+	set dictionary+="D:\Program Files (x86)\Vim\vimfiles\func_php.txt"
+	set complete-=k complete+=k
+	endfunction
+	au FileType php call PHPFuncList()
+
+	"taglist
+   let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+   let Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
+   let Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
+   let Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
+   let tlist_php_settings='php;c:class;i:interfaces;d:constant;f:function'
+
+ "autopop 
+ let  autoComplPop_Behavior = {'c': [ {'command' : "\<C-x>\<C-o>",'pattern' : ".",'repeat' : 0}]}
+
+  "php 补全：
+   if(!exists('g:AutoComplPop_Behavior'))
+	     let g:AutoComplPop_Behavior = {}
+	     let g:AutoComplPop_Behavior['php'] = []
+	     call add(g:AutoComplPop_Behavior['php'], {'command'   :"\<C-x>\<C-o>",'pattern'   :printf('\(->\|::\|\$\)\k\{%d,}$', 0),'repeat'    : 0,})
+	 endif
+
+	 "ominicppcomplete
+set completeopt=menu,menuone  
+let OmniCpp_MayCompleteDot=1   
+"  打开  . 操作符
+let OmniCpp_MayCompleteArrow=1  
+"打开 -> 操作符
+let OmniCpp_MayCompleteScope=1  
+"打开 :: 操作符
+let OmniCpp_NamespaceSearch=1   
+"打开命名空间
+let OmniCpp_GlobalScopeSearch=1  
+let OmniCpp_DefaultNamespace=["std"]  
+let OmniCpp_ShowPrototypeInAbbr=1   
+"打开显示函数原型
+let OmniCpp_SelectFirstItem = 2
+"自动弹出时自动跳至第一个
+"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+"execute pathogen#infect()
+" NERDTree
+ map <F10> :NERDTreeToggle<CR>
+ map <F9> :TlistOpen<CR>
+
+ "minibuffer
+ let g:miniBufExplMapCTabSwitchBufs=1
+ let g:miniBufExplMapWindowsNavVim=1
+ let g:miniBufExplMapWindowArrows=1
+
+ 	" css - html 补全
+     autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+     autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+    " " js自动补全
+     autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    " " php - mysql自动补全  Ctrl-x Ctrl-o 
+     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+     autocmd FileType mysql set omnifunc=mysqlcomplete#Complet
+
+	 set showcmd
+
+ let g:user_emmet_mode='n'    "only enable normal mode functions.
+ let g:user_emmet_mode='inv'  "enable all functions, which is equal to
+ let g:user_emmet_mode='a'    "enable all function in all mode.
+ let g:user_emmet_install_global = 0
+ autocmd FileType html,css EmmetInstall
+
+
+ nnoremap <F4> :call g:Jsbeautify()<CR>
+
